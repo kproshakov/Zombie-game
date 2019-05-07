@@ -187,310 +187,311 @@ public class ZombieGame extends JPanel
 	    }
 	}
 
-    
-
-    public void keyReleased(KeyEvent e)
-    {
-	if (e.getKeyCode() != KeyEvent.VK_SPACE)
+	public void keyReleased(KeyEvent e)
 	{
-	    Character c = e.getKeyChar();
-	    keys.remove(c);
-	    if (keys.size() == 0)
+	    if (e.getKeyCode() != KeyEvent.VK_SPACE)
 	    {
-		player.setMovement(Player.STOP);
-		tmrKey.stop();
-	    } else
-	    {
-		if (c == 'w')
-		{
-		    if (keys.contains('a'))
-		    {
-			player.setMovement(Player.WEST);
-		    } else if (keys.contains('s'))
-		    {
-			player.setMovement(Player.SOUTH);
-		    } else if (keys.contains('d'))
-		    {
-			player.setMovement(Player.EAST);
-		    }
-		} else if (c == 'a')
-		{
-		    if (keys.contains('w'))
-		    {
-			player.setMovement(Player.NORTH);
-		    } else if (keys.contains('s'))
-		    {
-			player.setMovement(Player.SOUTH);
-		    } else if (keys.contains('d'))
-		    {
-			player.setMovement(Player.EAST);
-		    }
-		} else if (c == 's')
-		{
-		    if (keys.contains('w'))
-		    {
-			player.setMovement(Player.NORTH);
-		    } else if (keys.contains('a'))
-		    {
-			player.setMovement(Player.WEST);
-		    } else if (keys.contains('d'))
-		    {
-			player.setMovement(Player.EAST);
-		    }
-		} else if (c == 'd')
-		{
-		    if (keys.contains('w'))
-		    {
-			player.setMovement(Player.NORTH);
-		    } else if (keys.contains('a'))
-		    {
-			player.setMovement(Player.WEST);
-		    } else if (keys.contains('s'))
-		    {
-			player.setMovement(Player.SOUTH);
-		    }
-		}
-
-	    }
-	} else 
-	{
-	    shootBullet();
-	}
-    }
-
-}
-
-private class tmrListener implements ActionListener
-{
-
-    public void actionPerformed(ActionEvent e)
-    {
-	if (e.getSource() == tmr)
-	{
-	    for (int i = 0; i < zombies.size(); i++)
-	    {
-		zombies.get(i).move(rnd.nextInt(3) + 2);
-
-		isWithin();
-		touchedZombie();
-		// repaint();
-	    }
-	} else if (e.getSource() == tmrKey)
-	{
-	    if (player.getX() >= imgBackground.getIconWidth() - player.getWidth())
-	    {
-
-		if (player.getY() <= 0)
-		{
-		    if (player.getMovement() == Player.SOUTHEAST)
-		    {
-			player.setMovement(Player.SOUTH);
-		    } else if (player.getMovement() == Player.NORTHEAST)
-		    {
-			player.setMovement(Player.STOP);
-		    } else if (player.getMovement() == Player.NORTH)
-		    {
-			player.setMovement(Player.STOP);
-		    }
-		} else if (player.getY() >= imgBackground.getIconHeight() - player.getHeight())
-		{
-
-		    if (player.getMovement() == Player.NORTHEAST)
-		    {
-			player.setMovement(Player.NORTH);
-		    } else if (player.getMovement() == Player.SOUTHEAST)
-		    {
-			player.setMovement(Player.STOP);
-		    } else if (player.getMovement() == Player.SOUTH)
-		    {
-			player.setMovement(Player.STOP);
-		    }
-		} else
-		{
-
-		    if (player.getMovement() == Player.SOUTHEAST)
-		    {
-			player.setMovement(Player.SOUTH);
-		    } else if (player.getMovement() == Player.NORTHEAST)
-		    {
-			player.setMovement(Player.NORTH);
-		    }
-		}
-
-		if (player.getMovement() == Player.EAST)
+		Character c = e.getKeyChar();
+		keys.remove(c);
+		if (keys.size() == 0)
 		{
 		    player.setMovement(Player.STOP);
-		}
-
-	    } else if (player.getX() <= 0)
-	    {
-
-		if (player.getY() <= 0)
-		{
-		    if (player.getMovement() == Player.NORTHWEST)
-		    {
-			player.setMovement(Player.STOP);
-		    } else if (player.getMovement() == Player.SOUTHWEST)
-		    {
-			player.setMovement(Player.SOUTH);
-		    } else if (player.getMovement() == Player.NORTH)
-		    {
-			player.setMovement(Player.STOP);
-		    }
-		} else if (player.getY() >= imgBackground.getIconHeight() - player.getHeight())
-		{
-		    if (player.getMovement() == Player.SOUTHWEST)
-		    {
-			player.setMovement(Player.STOP);
-		    } else if (player.getMovement() == Player.NORTHWEST)
-		    {
-			player.setMovement(Player.NORTH);
-		    } else if (player.getMovement() == Player.SOUTH)
-		    {
-			player.setMovement(Player.STOP);
-		    }
+		    tmrKey.stop();
 		} else
 		{
-
-		    if (player.getMovement() == Player.NORTHWEST)
+		    if (c == 'w')
 		    {
-			player.setMovement(Player.NORTH);
-		    } else if (player.getMovement() == Player.SOUTHWEST)
-		    {
-			player.setMovement(Player.SOUTH);
-		    }
-		}
-
-		if (player.getMovement() == Player.WEST)
-		{
-		    player.setMovement(Player.STOP);
-		}
-	    } else if (player.getY() >= imgBackground.getIconHeight() - player.getHeight())
-	    {
-
-		if (player.getX() >= imgBackground.getIconWidth() - player.getWidth())
-		{
-		    if (player.getMovement() == Player.SOUTHEAST)
-		    {
-			player.setMovement(Player.STOP);
-		    } else if (player.getMovement() == Player.SOUTHWEST)
-		    {
-			player.setMovement(Player.WEST);
-		    }
-		} else if (player.getX() <= 0)
-		{
-		    if (player.getMovement() == Player.SOUTHWEST)
-		    {
-			player.setMovement(Player.STOP);
-		    } else if (player.getMovement() == Player.SOUTHEAST)
-		    {
-			player.setMovement(Player.EAST);
-		    }
-		} else
-		{
-		    if (player.getMovement() == Player.SOUTHEAST)
-		    {
-			player.setMovement(Player.EAST);
-		    } else if (player.getMovement() == Player.SOUTHWEST)
-		    {
-			player.setMovement(Player.WEST);
-		    }
-		}
-
-		if (player.getMovement() == Player.SOUTH)
-		{
-		    player.setMovement(Player.STOP);
-		}
-	    } else if (player.getY() <= 0)
-	    {
-
-		if (player.getX() >= imgBackground.getIconWidth() - player.getWidth())
-		{
-		    if (player.getMovement() == Player.NORTHWEST)
-		    {
-			player.setDirection(Player.STOP);
-		    } else if (player.getMovement() == Player.NORTHWEST)
-		    {
-			player.setDirection(Player.NORTHWEST);
-		    }
-		} else if (player.getX() <= 0)
-		{
-		    if (player.getMovement() == Player.NORTHWEST)
-		    {
-			player.setDirection(Player.WEST);
-		    } else if (player.getMovement() == Player.NORTHWEST)
-		    {
-			player.setDirection(Player.STOP);
-		    }
-		} else
-		{
-		    if (player.getMovement() == Player.NORTHEAST)
-		    {
-			player.setMovement(Player.EAST);
-		    } else if (player.getMovement() == Player.NORTHWEST)
-		    {
-			player.setMovement(Player.WEST);
-		    }
-		}
-
-		if (player.getMovement() == Player.NORTH)
-		{
-		    player.setMovement(Player.STOP);
-		}
-	    }
-	    player.move();
-	    // repaint();
-	} else if (e.getSource() == tmrBullets)
-	{
-	    if (reloading)
-	    {
-		reloadCountdown -= 10;
-		if (reloadCountdown <= 0)
-		{
-		    reloading = false;
-		    reloadCountdown = 5000;
-		    ammo = new Bullet[10];
-		    bulletCounter = 10;
-		}
-
-	    }
-
-	    for (int i = 0; i < 10 - bulletCounter; i++)
-	    {
-		ammo[i].move();
-		if (ammo[i].getX() > imgBackground.getIconWidth() || ammo[i].getX() <= 0)
-		{
-		    if (ammo[i].isFired())
-		    {
-			ammo[i].setFired(false);
-		    }
-
-		} else if (ammo[i].getY() > imgBackground.getIconHeight() || ammo[i].getY() <= 0)
-		{
-		    if (ammo[i].isFired())
-		    {
-			ammo[i].setFired(false);
-		    }
-
-		}
-
-		if (ammo[i].isFired())
-		{
-		    for (int j = 0; j < zombies.size(); j++)
-		    {
-
-			if (zombies.get(j).getRec().intersects(ammo[i].getRec()))
+			if (keys.contains('a'))
 			{
-			    zombies.get(j).killZombie();
+			    player.setMovement(Player.WEST);
+			} else if (keys.contains('s'))
+			{
+			    player.setMovement(Player.SOUTH);
+			} else if (keys.contains('d'))
+			{
+			    player.setMovement(Player.EAST);
+			}
+		    } else if (c == 'a')
+		    {
+			if (keys.contains('w'))
+			{
+			    player.setMovement(Player.NORTH);
+			} else if (keys.contains('s'))
+			{
+			    player.setMovement(Player.SOUTH);
+			} else if (keys.contains('d'))
+			{
+			    player.setMovement(Player.EAST);
+			}
+		    } else if (c == 's')
+		    {
+			if (keys.contains('w'))
+			{
+			    player.setMovement(Player.NORTH);
+			} else if (keys.contains('a'))
+			{
+			    player.setMovement(Player.WEST);
+			} else if (keys.contains('d'))
+			{
+			    player.setMovement(Player.EAST);
+			}
+		    } else if (c == 'd')
+		    {
+			if (keys.contains('w'))
+			{
+			    player.setMovement(Player.NORTH);
+			} else if (keys.contains('a'))
+			{
+			    player.setMovement(Player.WEST);
+			} else if (keys.contains('s'))
+			{
+			    player.setMovement(Player.SOUTH);
 			}
 		    }
-		}
 
+		}
+	    } else
+	    {
+		shootBullet();
 	    }
-	    repaint();
 	}
 
     }
+
+    private class tmrListener implements ActionListener
+    {
+
+	public void actionPerformed(ActionEvent e)
+	{
+	    if (e.getSource() == tmr)
+	    {
+		for (int i = 0; i < zombies.size(); i++)
+		{
+		    zombies.get(i).move(rnd.nextInt(3) + 2);
+
+		    isWithin();
+		    touchedZombie();
+		    // repaint();
+		}
+	    } else if (e.getSource() == tmrKey)
+	    {
+		if (player.getX() >= imgBackground.getIconWidth() - player.getWidth())
+		{
+
+		    if (player.getY() <= 0)
+		    {
+			if (player.getMovement() == Player.SOUTHEAST)
+			{
+			    player.setMovement(Player.SOUTH);
+			} else if (player.getMovement() == Player.NORTHEAST)
+			{
+			    player.setMovement(Player.STOP);
+			} else if (player.getMovement() == Player.NORTH)
+			{
+			    player.setMovement(Player.STOP);
+			}
+		    } else if (player.getY() >= imgBackground.getIconHeight() - player.getHeight())
+		    {
+
+			if (player.getMovement() == Player.NORTHEAST)
+			{
+			    player.setMovement(Player.NORTH);
+			} else if (player.getMovement() == Player.SOUTHEAST)
+			{
+			    player.setMovement(Player.STOP);
+			} else if (player.getMovement() == Player.SOUTH)
+			{
+			    player.setMovement(Player.STOP);
+			}
+		    } else
+		    {
+
+			if (player.getMovement() == Player.SOUTHEAST)
+			{
+			    player.setMovement(Player.SOUTH);
+			} else if (player.getMovement() == Player.NORTHEAST)
+			{
+			    player.setMovement(Player.NORTH);
+			}
+		    }
+
+		    if (player.getMovement() == Player.EAST)
+		    {
+			player.setMovement(Player.STOP);
+		    }
+
+		} else if (player.getX() <= 0)
+		{
+
+		    if (player.getY() <= 0)
+		    {
+			if (player.getMovement() == Player.NORTHWEST)
+			{
+			    player.setMovement(Player.STOP);
+			} else if (player.getMovement() == Player.SOUTHWEST)
+			{
+			    player.setMovement(Player.SOUTH);
+			} else if (player.getMovement() == Player.NORTH)
+			{
+			    player.setMovement(Player.STOP);
+			}
+		    } else if (player.getY() >= imgBackground.getIconHeight() - player.getHeight())
+		    {
+			if (player.getMovement() == Player.SOUTHWEST)
+			{
+			    player.setMovement(Player.STOP);
+			} else if (player.getMovement() == Player.NORTHWEST)
+			{
+			    player.setMovement(Player.NORTH);
+			} else if (player.getMovement() == Player.SOUTH)
+			{
+			    player.setMovement(Player.STOP);
+			}
+		    } else
+		    {
+
+			if (player.getMovement() == Player.NORTHWEST)
+			{
+			    player.setMovement(Player.NORTH);
+			} else if (player.getMovement() == Player.SOUTHWEST)
+			{
+			    player.setMovement(Player.SOUTH);
+			}
+		    }
+
+		    if (player.getMovement() == Player.WEST)
+		    {
+			player.setMovement(Player.STOP);
+		    }
+		} else if (player.getY() >= imgBackground.getIconHeight()
+			- player.getHeight())
+		{
+
+		    if (player.getX() >= imgBackground.getIconWidth() 
+			    - player.getWidth())
+		    {
+			if (player.getMovement() == Player.SOUTHEAST)
+			{
+			    player.setMovement(Player.STOP);
+			} else if (player.getMovement() == Player.SOUTHWEST)
+			{
+			    player.setMovement(Player.WEST);
+			}
+		    } else if (player.getX() <= 0)
+		    {
+			if (player.getMovement() == Player.SOUTHWEST)
+			{
+			    player.setMovement(Player.STOP);
+			} else if (player.getMovement() == Player.SOUTHEAST)
+			{
+			    player.setMovement(Player.EAST);
+			}
+		    } else
+		    {
+			if (player.getMovement() == Player.SOUTHEAST)
+			{
+			    player.setMovement(Player.EAST);
+			} else if (player.getMovement() == Player.SOUTHWEST)
+			{
+			    player.setMovement(Player.WEST);
+			}
+		    }
+
+		    if (player.getMovement() == Player.SOUTH)
+		    {
+			player.setMovement(Player.STOP);
+		    }
+		} else if (player.getY() <= 0)
+		{
+
+		    if (player.getX() >= imgBackground.getIconWidth() - player.getWidth())
+		    {
+			if (player.getMovement() == Player.NORTHWEST)
+			{
+			    player.setDirection(Player.STOP);
+			} else if (player.getMovement() == Player.NORTHWEST)
+			{
+			    player.setDirection(Player.NORTHWEST);
+			}
+		    } else if (player.getX() <= 0)
+		    {
+			if (player.getMovement() == Player.NORTHWEST)
+			{
+			    player.setDirection(Player.WEST);
+			} else if (player.getMovement() == Player.NORTHWEST)
+			{
+			    player.setDirection(Player.STOP);
+			}
+		    } else
+		    {
+			if (player.getMovement() == Player.NORTHEAST)
+			{
+			    player.setMovement(Player.EAST);
+			} else if (player.getMovement() == Player.NORTHWEST)
+			{
+			    player.setMovement(Player.WEST);
+			}
+		    }
+
+		    if (player.getMovement() == Player.NORTH)
+		    {
+			player.setMovement(Player.STOP);
+		    }
+		}
+		player.move();
+		// repaint();
+	    } else if (e.getSource() == tmrBullets)
+	    {
+		if (reloading)
+		{
+		    reloadCountdown -= 10;
+		    if (reloadCountdown <= 0)
+		    {
+			reloading = false;
+			reloadCountdown = 5000;
+			ammo = new Bullet[10];
+			bulletCounter = 10;
+		    }
+
+		}
+
+		for (int i = 0; i < 10 - bulletCounter; i++)
+		{
+		    ammo[i].move();
+		    if (ammo[i].getX() > imgBackground.getIconWidth() || ammo[i].getX() <= 0)
+		    {
+			if (ammo[i].isFired())
+			{
+			    ammo[i].setFired(false);
+			}
+
+		    } else if (ammo[i].getY() > imgBackground.getIconHeight() || ammo[i].getY() <= 0)
+		    {
+			if (ammo[i].isFired())
+			{
+			    ammo[i].setFired(false);
+			}
+
+		    }
+
+		    if (ammo[i].isFired())
+		    {
+			for (int j = 0; j < zombies.size(); j++)
+			{
+
+			    if (zombies.get(j).getRec().intersects(ammo[i].getRec()))
+			    {
+				zombies.get(j).killZombie();
+				ammo[i].setFired(false);
+			    }
+			}
+		    }
+
+		}
+		repaint();
+	    }
+
+	}
 
     }
 
@@ -501,8 +502,11 @@ private class tmrListener implements ActionListener
 
 	    if (bulletCounter > 0)
 	    {
-		ammo[ammo.length - bulletCounter] = new Bullet(player.getCX(), player.getCY(),
-			player.getDirection() == 1);
+		ammo[ammo.length - bulletCounter] = 
+			new Bullet(player.getDirection() == Player.WEST ?
+				player.getX() : player.getX() + 
+				player.getWidth(), player.getCY() - 17, 
+				player.getDirection() == 1);
 		ammo[ammo.length - bulletCounter].move();
 		repaint();
 		bulletCounter--;
@@ -531,17 +535,12 @@ private class tmrListener implements ActionListener
 
     public void touchedZombie()
     {
-	Rectangle p = new Rectangle(player.getX() + 5, player.getY() + (player.getHeight() / 3) * 2,
-		player.getWidth() - 10, player.getHeight() / 3);
-	Rectangle z;
 
 	for (int i = 0; i < zombies.size(); i++)
 	{
 	    if (!zombies.get(i).isDead())
 	    {
-		z = new Rectangle(zombies.get(i).getX(), zombies.get(i).getY() + (zombies.get(i).getHeight() / 3) * 2,
-			zombies.get(i).getWidth(), zombies.get(i).getHeight() / 3);
-		if (p.intersects(z))
+		if (player.getRec().intersects(zombies.get(i).getRec()))
 		{
 		    player.killPlayer();
 		    tmr.stop();

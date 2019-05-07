@@ -186,59 +186,10 @@ public class Player
 		}
 	}
 	
-	public void move(int...x)
+	public Rectangle getRec()
 	{
-		if (!isDead)
-		{
-			if (x.length == 1)
-			{
-				if (movement == EAST)
-				{
-					direction = EAST;
-					xPos += x[0];
-				}
-				else if (movement == WEST)
-				{
-					direction = WEST;
-					xPos -= x[0];
-				}
-				else if (movement == NORTH)
-				{
-					yPos -= x[0];
-				}
-				else if (movement == SOUTH)
-				{
-					yPos += x[0];
-				}
-			}
-			else if (x.length == 2)
-			{
-				if (movement == NORTHWEST)
-				{
-					direction = WEST;
-					xPos -= x[0];
-					yPos += x[1];
-				}
-				else if (movement == NORTHEAST)
-				{
-					direction = EAST;
-					xPos += x[0];
-					yPos += x[1];
-				}
-				else if (movement == SOUTHWEST)
-				{
-					direction = WEST;
-					xPos -= x[0];
-					yPos -= x[1];
-				}
-				else if (movement == SOUTHEAST)
-				{
-					direction = EAST;
-					xPos += x[0];
-					yPos -= x[1];
-				}
-			}
-		}
+	    return new Rectangle(xPos + 5, yPos + (height / 3), width - 10, 
+		    height / 3);
 	}
 
 	public void setDirection(int dir)
