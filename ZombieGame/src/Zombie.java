@@ -31,8 +31,6 @@ public class Zombie
 	    }
 	}
 
-	imgDeadZombie = new ImageIcon(getClass().getResource("deadZombie.png"));
-
 	rnd = new Random();
 
 	direction = rnd.nextInt(2);
@@ -83,11 +81,21 @@ public class Zombie
 	deathCounter++;
 	return deathCounter == 50;
     }
-
+    
     public Rectangle getRec()
     {
-	return new Rectangle(xPos, yPos, width, height);
+	return new Rectangle (xPos + 5, yPos + (height / 3), width - 10, height / 3);
     }
+
+    /*public Rectangle getRecPlayer()
+    {
+	return new Rectangle(xPos, yPos + (height / 3), width, height / 3);
+    }
+    
+    public Rectangle getRecBullets()
+    {
+	return new Rectangle(xPos, yPos + (height / 3), width, height / 3);
+    }*/
 
     public void killZombie()
     {
