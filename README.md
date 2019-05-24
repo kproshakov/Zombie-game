@@ -1,6 +1,6 @@
 # Zombie-game
 
-This game was made to practice applying OOP concepts. It is a Java application, comes with both sourse code (in the 'src' folder) and the compiled coded ('bin' folder).
+This game was made to practice applying OOP concepts. It is a Java application, comes with both sourse code (in the 'src' folder) and the pictures ('bin' folder).
 
 
 I do not own the pictures used in the game and therefore here are the links to the sources:
